@@ -1,0 +1,39 @@
+{
+  "name": "imgur-uploader",
+  "authors": [
+    "e022333 <ffernandez@bbva.com>"
+  ],
+  "version": "1.0.2",
+  "description": "Component to upload a canvas to imgur",
+  "main": "imgur-uploader.html",
+  "keywords": [
+    "web-components"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/fernandezpaco/imgur-uploader",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "iron-ajax": "PolymerElements/iron-ajax#^1.4.0",
+    "polymer": "Polymer/polymer#^1.0.0",
+    "webcomponentsjs": "^0.7.22"
+  },
+  "devDependencies": {
+    "video-camera": "^1.0.1",
+    "paper-input": "PolymerElements/paper-input#^1.1.15"
+  },
+  "_release": "1.0.2",
+  "_resolution": {
+    "type": "version",
+    "tag": "1.0.2",
+    "commit": "3825758a8a342b5a842261d0101966ed0e319642"
+  },
+  "_source": "https://github.com/fernandezpaco/imgur-uploader.git",
+  "_target": "^1.0.1",
+  "_originalSource": "imgur-uploader"
+}

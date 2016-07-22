@@ -1,0 +1,119 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-ajax/iron-ajax.html">
+
+<dom-module id="face-recognition">
+	<template>
+		<iron-ajax
+			id="dataAjax"
+		    url="https://api.projectoxford.ai/face/v1.0/detect?returnFaceId=true&returnFaceLandmarks=false"
+		    method="POST"
+		    content-type="application/json"
+		    on-response="handleResponse"
+		    on-error="handleResponse"
+		    headers='{{compkey}}'>
+		</iron-ajax>
+		<iron-ajax
+			id="dataAjax2"
+		    url="https://api.projectoxford.ai/face/v1.0/identify"
+		    method="POST"
+		    content-type="application/json"
+		    on-response="handleResponse2"
+		    on-error="handleResponse2"
+		    headers='{{compkey}}'>
+		</iron-ajax>
+		<iron-ajax
+			id="dataAjax3"
+		    url="https://api.projectoxford.ai/face/v1.0/persongroups/{{pgid}}/persons/{{persid}}"
+		    method="GET"
+		    content-type="application/json"
+		    on-response="handleResponse3"
+		    on-error="handleResponse3"
+		    headers='{{compkey}}'>
+		</iron-ajax>
+		<paper-toast id="toast2" duration="2000">
+		</paper-toast>
+
+	</template>	
+
+<script>
+Polymer({
+	is: "face-recognition",
+	properties: {
+		url: {
+			type: String,
+			observer: '_urlChanged'
+		},
+		persid: {
+			type: String,
+			notify: true
+		},
+		name: {
+			type: String,
+			notify: true
+		},
+		pgid: String,
+		key: String,
+		compkey: {
+  			type: Object,
+  			computed: 'computeKey(key)'
+		}
+	},
+	computeKey: function(key){
+		return {"Ocp-Apim-Subscription-Key":key};
+	},	
+	_urlChanged: function(){
+		this.postData();
+	},
+	postData: function(){
+		this.name="";
+      	this.$.dataAjax.body='{"url":"'+this.url+'"}';
+      	this.$.dataAjax.generateRequest();
+    },
+    postData2: function (data){
+		this.$.dataAjax2.body={"personGroupId":this.pgid,"faceIds":[],"maxNumOfCandidatesReturned":1};
+		for(i=0;i<data.length;i++)
+			this.$.dataAjax2.body.faceIds.push(data[i].faceId);
+		this.$.dataAjax2.generateRequest();
+    },
+	postData3: function(){
+      	this.$.dataAjax3.generateRequest();
+    },
+    handleResponse: function (data) {
+    	if(data.detail.error){
+    		if(data.detail.error.message)
+        		console.log(data.detail.error.message);
+        }else{
+        	console.log("Faces detected: " + data.detail.response.length);
+        	if(data.detail.response.length>0)
+        		this.postData2(data.detail.response);
+        }
+    },
+    handleResponse2: function (data) {
+    	if(data.detail.error){
+    		if(data.detail.error.message)
+        		console.log(data.detail.error.message);
+        }else{
+        	this.persid = data.detail.response[0].candidates[0].personId;
+        	console.log(data.detail.response[0].candidates[0].personId+" "+data.detail.response[0].candidates[0].confidence);
+        	if(localStorage.getItem(data.detail.response[0].candidates[0].personId)){
+        		this.name=localStorage.getItem(data.detail.response[0].candidates[0].personId);
+        		console.log("Hello: " + localStorage.getItem(data.detail.response[0].candidates[0].personId));
+        	}else{
+        		this.postData3();
+        	}
+        }
+    },
+    handleResponse3: function (data) {
+    	if(data.detail.error){
+    		if(data.detail.error.message)
+        		console.log(data.detail.error.message);
+        }else{
+        	localStorage.setItem(data.detail.response.personId,data.detail.response.name);
+        	console.log("Hello: " + data.detail.response.name);
+        	this.name=data.detail.response.name;
+        }
+    }
+
+})
+</script>
+</dom-module>

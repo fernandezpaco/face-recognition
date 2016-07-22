@@ -1,0 +1,30 @@
+{
+  "name": "face-recognition",
+  "homepage": "https://github.com/fernandezpaco/face-recognition",
+  "authors": [
+    "e022333 <ffernandez@bbva.com>"
+  ],
+  "version": "1.0.0",
+  "description": "Using oxford API recognizes one previously trained face",
+  "main": "face-recognition.html",
+  "keywords": [
+    "web-components"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.0.0",
+    "webcomponentsjs": "^0.7.22",
+    "iron-ajax": "^1.2.1"
+  },
+  "devDependencies": {
+    "video-camera": "^1.0.1",
+    "imgur-uploader": "^1.0.1"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

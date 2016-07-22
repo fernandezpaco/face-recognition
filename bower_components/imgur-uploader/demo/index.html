@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes" name="viewport">
+
+  <title>imgur-upload Demo</title>
+
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../../polymer/polymer.html">
+  <link rel="import" href="../../paper-input/paper-input.html">
+  <link rel="import" href="../../video-camera/video-camera.html">
+
+  <link rel="import" href="../imgur-uploader.html">
+</head>
+<body>
+
+<template is="dom-bind">
+
+  <video-camera screenshot="{{screen}}"></video-camera>
+
+  <imgur-uploader canvas="{{screen}}" url="{{url}}" client_id="{{val}}"></imgur-uploader>
+  <br>
+  <paper-input label="your client id" value="{{val}}"></paper-input>
+  <a href="{{url}}">Input your imgur client-id, then Click on the video and then click here to see image (when url is ready)</a>
+
+</template>
+</body>
+</html>

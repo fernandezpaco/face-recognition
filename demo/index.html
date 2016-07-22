@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes" name="viewport">
+
+  <title>face-recognition Demo</title>
+
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../../polymer/polymer.html">
+  <link rel="import" href="../../video-camera/video-camera.html">
+  <link rel="import" href="../../imgur-uploader/imgur-uploader.html">
+
+  <link rel="import" href="../face-recognition.html">
+</head>
+<body>
+
+<template is="dom-bind">
+
+  <video-camera screenshot="{{screen}}"></video-camera>
+
+  <imgur-uploader canvas="{{screen}}" url="{{url}}" client_id="1f23603f3f374a4"></imgur-uploader>
+
+  <face-recognition pgid="family" url="{{url}}" key="32d28615afb1418bb2f1e937bcbd06a8" name="{{name}}"></face-recognition>
+
+  Hello {{name}}
+
+</template>
+</body>
+</html>
